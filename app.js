@@ -1,6 +1,6 @@
 var config = require('./config.js');
 var $ = require('./bower_components/jquery/dist/jquery.min.js');
-var Views = require('./views');
+var Router = require('./app/router');
 
 function loadCSS(path) {
   $('<link rel="stylesheet" type="text/css" href="' + path + '">').appendTo('head');
@@ -16,8 +16,11 @@ $root.insertAfter($script);
 loadCSS(config.uri + '/bootstrap/bootstrap.min.css');
 loadCSS(config.uri + '/bootstrap/bootstrap-theme.min.css');
 
+// Add font awesome
+loadCSS(config.uri + '/font-awesome/css/font-awesome.min.css');
+
 // TODO
-Views.Event.init({
+Router.init({
   $el: $root,
-  event: $script.attr('data-event'),
 });
+Router.route('events/5327304205dcf7cd1a280554');
