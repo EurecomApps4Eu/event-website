@@ -24,25 +24,21 @@ module.exports = function(grunt) {
         }
       }
     },
+    */
     copy: {
       dev: {
         files: [
           {
-            src: 'bower_components/jquery-hammerjs/jquery.hammer.min.js',
-            dest: 'phonegap/www/js/jquery.hammer.min.js',
+            src: 'bower_components/bootstrap/dist/css/bootstrap.min.css',
+            dest: 'dist/bootstrap/bootstrap.min.css',
           },
           {
-            src: 'bower_components/hammerjs/hammer.min.js',
-            dest: 'phonegap/www/js/hammer.min.js',
-          },
-          {
-            src: 'bower_components/jquery/dist/jquery.min.js',
-            dest: 'phonegap/www/js/jquery.min.js',
+            src: 'bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
+            dest: 'dist/bootstrap/bootstrap-theme.min.css',
           },
         ]
       }
     },
-    */
   });
 
   grunt.loadNpmTasks('grunt-contrib-copy');
