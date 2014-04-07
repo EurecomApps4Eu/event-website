@@ -36,6 +36,22 @@ module.exports = function(grunt) {
             src: 'bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
             dest: 'dist/bootstrap/bootstrap-theme.min.css',
           },
+          {
+            src: 'app/styles/app.css',
+            dest: 'dist/app.css',
+          },
+          {
+            expand: true,
+            cwd: 'bower_components/font-awesome/css/',
+            src: '*',
+            dest: 'dist/font-awesome/css/',
+          },
+          {
+            expand: true,
+            cwd: 'bower_components/font-awesome/fonts/',
+            src: '*',
+            dest: 'dist/font-awesome/fonts/',
+          },
         ]
       }
     },
@@ -48,6 +64,6 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('default', ['browserify', 'jshint']);
-  grunt.registerTask('all', ['browserify', 'jshint', 'sass', 'copy']);
+  grunt.registerTask('all', ['browserify', 'jshint', 'copy']);
 
 };
