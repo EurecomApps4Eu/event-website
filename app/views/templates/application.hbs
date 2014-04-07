@@ -4,13 +4,13 @@
     <div class="text">{{{text}}}</div>
   </div>
   <div class="col-md-4">
-    TODO
-  </div>
-</div>
-<div class="row actions" style="margin-top:1.4em">
-  <div class="col-md-12">
-    <a class="btn btn-primary" href="#addApplication"><i class="fa fa-plus"></i> Add new application</a>
-    <a class="btn btn-primary" href="#addIdea"><i class="fa fa-plus"></i> Add new idea</a>
-    <a class="btn btn-default" style="margin-left:1em;" href="#addEvent"><i class="fa fa-plus"></i> Add new event</a>
+    <dl>
+      <dt>Related Event</dt>
+        <dd><a href="#events/{{connectedEvent._id}}">{{connectedEvent.title}}</a></dd>
+      <dt>Homepage</dt>
+        <dd><a href="{{homepage}}">{{homepage}}</a></dd>
+      <dt>Download URL</dt>
+        <dd><a href="{{downloadUrl}}">{{downloadUrl}}</a></dd>
+    </dl>
   </div>
 </div>

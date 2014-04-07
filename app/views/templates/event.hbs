@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row eventInfo">
   <div class="col-md-8">
     <h1>{{title}}</h1>
     <div class="text">{{{text}}}</div>
@@ -6,7 +6,7 @@
   <div class="col-md-4">
     <dl>
       <dt>Location</dt>
-        <dd>{{spatial}}</dd>
+        <dd>{{location}}</dd>
       <dt>Starts</dt>
         <dd>{{startDate}}</dd>
       <dt>Ends</dt>
@@ -14,10 +14,80 @@
     </dl>
   </div>
 </div>
+
+{{#if firstPrize}}
+  <div class="row prizes">
+    <div class="col-md-12">
+      <h2>Prizes</h2>
+
+      <h4>First Prize</h4>
+      <p>
+        Prize: {{firstPrize}}
+        {{#if firstPrizeWinners}}
+          <br>Winners:
+          {{#each firstPrizeWinners}}
+            <a href="#applications/{{this._id}}">{{this.title}}</a>
+          {{/each}}
+        {{/if}}
+      </p>
+
+      {{#if secondPrize}}
+        <h4>Second Prize</h4>
+        <p>
+          Prize: {{secondPrize}}
+          {{#if secondPrizeWinners}}
+            <br>Winners:
+            {{#each secondPrizeWinners}}
+              <a href="#applications/{{this._id}}">{{this.title}}</a>
+            {{/each}}
+          {{/if}}
+        </p>
+      {{/if}}
+
+      {{#if thirdPrize}}
+        <h4>Third Prize</h4>
+        <p>
+          Prize: {{thirdPrize}}
+          {{#if thirdPrizeWinners}}
+            <br>Winners:
+            {{#each thirdPrizeWinners}}
+              <a href="#applications/{{this._id}}">{{this.title}}</a>
+            {{/each}}
+          {{/if}}
+        </p>
+      {{/if}}
+    </div>
+  </div>
+{{/if}}
+
+{{#if juryMembers}}
+  <div class="row jury">
+    <div class="col-md-12">
+      <h2>Jury</h2>
+      <ul>
+        {{#each juryMembers}}
+          <li><a href="mailto:{{this.email}}">{{this.name}}</a></li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+{{/if}}
+
+{{#if applications}}
+  <div class="row apps">
+    <div class="col-md-12">
+      <h2>Applications</h2>
+      <ul>
+        {{#each applications}}
+          <li><a href="#applications/{{this._id}}">{{this.title}}</a></li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+{{/if}}
+
 <div class="row actions" style="margin-top:1.4em">
   <div class="col-md-12">
-    <a class="btn btn-primary" href="#addApplication"><i class="fa fa-plus"></i> Add new application</a>
-    <a class="btn btn-primary" href="#addIdea"><i class="fa fa-plus"></i> Add new idea</a>
-    <a class="btn btn-default" style="margin-left:1em;" href="#addEvent"><i class="fa fa-plus"></i> Add new event</a>
+    <a class="btn btn-primary" id="submitApp" href="#"><i class="fa fa-plus"></i> Submit application</a>
   </div>
 </div>

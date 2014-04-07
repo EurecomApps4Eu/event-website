@@ -5,9 +5,25 @@ var Router = {
 
   init: function(options) {
     this.$el = options.$el;
+    this.eventId = options.eventId;
+
+    // Need to watch location hash for changes
+    window.onhashchange = function() {
+      var newHash = location.hash.substring(1);
+      if ( Router.prevHash !== newHash ) {
+        Router.prevHash = newHash;
+        Router.route(newHash);
+      }
+    }
   },
 
-  route: function(path) {
+  setHash: function(hash) {
+    // Prevent router from routing when manually setting the hash
+    Router.prevHash = hash;
+    location.hash = hash;
+  },
+
+  route: function(path, noHistory) {
 
     var matches;
     var routeFound = false;
@@ -25,6 +41,9 @@ var Router = {
 
         // Init event handlers for links etc.
         this.initEventHandlers();
+
+        //  Add history entry for applications
+        Router.setHash(matches[0]);
 
         // Ececute the matching route
         val.fn(matches);
@@ -52,16 +71,6 @@ var Router = {
       }
     },
 
-    postEvent: {
-      pattern: 'addEvent',
-      fn: function() {
-        View.EventForm.init({
-          $el: Router.$el,
-          Router: Router,
-        });
-      },
-    },
-
     applications: {
       pattern: /^applications\/(.+)/,
       fn: function(matches) {
@@ -72,22 +81,37 @@ var Router = {
       }
     },
 
-    addApplication: {
-      pattern: 'addApplication',
-      fn: function() {
-        View.ApplicationForm.init({
-          $el: Router.$el,
-          Router: Router,
-        });
-      },
-    },
-
   },
 
   initEventHandlers: function() {
     this.$el.on('click', 'a', function(e) {
 
       var $a = $(this);
+
+      // TODO: move this to a smarter place
+      if ( $a.is('#submitApp') ) {
+        e.preventDefault();
+        var popupHtml = require('./views/templates/popup.hbs')({
+          title: 'Submit Application',
+          body: '<iframe src="http://localhost:9000/#/apps/new?modal=true&connectedEvent='+Router.eventId+'"></iframe>'
+        });
+        var $overlay = $('<div id="apps4euOverlay"></div>').appendTo('body');
+        var $popup = $(popupHtml);
+        $popup.appendTo('body');
+        $('body').addClass('apps4euModalActive');
+
+        $popup.on('click', 'button.close', function(e) {
+          window.closeApps4euModal();
+        });
+        window.closeApps4euModal = function() {
+          e.preventDefault();
+          $overlay.remove();
+          $popup.remove();
+          $('body').removeClass('apps4euModalActive');
+        }
+
+        return;
+      }
 
       if ( $a.attr('href').substring(0,1) === '#' ) {
         e.preventDefault();

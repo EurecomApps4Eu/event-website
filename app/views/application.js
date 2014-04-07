@@ -8,6 +8,9 @@ var Application = {
 
     // TODO: query API and render results
     Model.Application.get(options.id, {
+      data: {
+        populate:'connectedEvent'
+      },
       success: function(data) {
         Application.render(data);
       }

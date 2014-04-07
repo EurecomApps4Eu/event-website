@@ -16,7 +16,17 @@ var Model = {
     path: '',
 
     get: function(id, options) {
-      options.url = this.path + '/' + id;
+      var url = this.path;
+
+      if ( arguments.length === 1 ) {
+        options = id;
+      }
+      else {
+        url += '/' + id;
+      }
+
+      options.url = url;
+
       Model.ajax(options);
     },
     post: function(data, options) {
