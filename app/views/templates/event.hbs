@@ -5,12 +5,20 @@
   </div>
   <div class="col-md-4">
     <dl>
-      <dt>Location</dt>
-        <dd>{{location}}</dd>
-      <dt>Starts</dt>
-        <dd>{{startDate}}</dd>
-      <dt>Ends</dt>
-        <dd>{{endDate}}</dd>
+      {{#if location}}
+        <dt>Location</dt>
+          <dd>{{location}}</dd>
+      {{/if}}
+
+      {{#if startDate}}
+        <dt>Starts</dt>
+          <dd>{{startDate}}</dd>
+      {{/if}}
+
+      {{#if endDate}}
+        <dt>Ends</dt>
+          <dd>{{endDate}}</dd>
+      {{/if}}
     </dl>
   </div>
 </div>
