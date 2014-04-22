@@ -64,3 +64,10 @@ body.apps4euModalActive {
 #apps4europeRoot .prizes h4 {
   margin-top:1em;
 }
+
+#apps4europeRoot ul.datasets {
+  margin:0;
+  padding: 0;
+  padding-left: 5px;
+  list-style-position: inside;
+}

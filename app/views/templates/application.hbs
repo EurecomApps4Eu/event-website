@@ -5,12 +5,31 @@
   </div>
   <div class="col-md-4">
     <dl>
-      <dt>Related Event</dt>
-        <dd><a href="#events/{{connectedEvent._id}}">{{connectedEvent.title}}</a></dd>
-      <dt>Homepage</dt>
-        <dd><a href="{{homepage}}">{{homepage}}</a></dd>
-      <dt>Download URL</dt>
-        <dd><a href="{{downloadUrl}}">{{downloadUrl}}</a></dd>
+      {{#if connectedEvent}}
+        <dt>Related Event</dt>
+          <dd><a href="#events/{{connectedEvent._id}}">{{connectedEvent.title}}</a></dd>
+      {{/if}}
+
+      {{#if homepage}}
+        <dt>Homepage</dt>
+          <dd><a target="_blank" href="{{homepage}}">{{homepage}}</a></dd>
+      {{/if}}
+
+      {{#if downloadUrl}}
+        <dt>Download URL</dt>
+          <dd><a target="_blank" href="{{downloadUrl}}">{{downloadUrl}}</a></dd>
+      {{/if}}
+
+      {{#if datasets}}
+        <dt>Datasets</dt>
+          <dd>
+            <ul class="datasets">
+              {{#each datasets}}
+                <li><a target="_blank" href="{{this}}">{{this}}</a></li>
+              {{/each}}
+            </ul>
+          </dd>
+      {{/if}}
     </dl>
   </div>
 </div>
