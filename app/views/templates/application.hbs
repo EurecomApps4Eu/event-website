@@ -2,6 +2,14 @@
   <div class="col-md-8">
     <h1>{{title}}</h1>
     <div class="text">{{{text}}}</div>
+    <div class="row">
+      <div class="col-md-12 images">
+        <h2>Images</h2>
+        {{#each images}}
+          <a class="img-thumbnail" style="background-image:url({{this}})" href="{{this}}"></a>
+        {{/each}}
+      </div>
+    </div>
   </div>
   <div class="col-md-4">
     <dl>

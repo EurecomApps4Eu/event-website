@@ -71,3 +71,12 @@ body.apps4euModalActive {
   padding-left: 5px;
   list-style-position: inside;
 }
+
+#apps4europeRoot .images .img-thumbnail {
+  width:140px;
+  height:100px;
+  background-size:cover;
+  background-position:50% 50%;
+  display:inline-block;
+  background-repeat:no-repeat;
+}
