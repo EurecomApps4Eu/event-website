@@ -80,3 +80,20 @@ body.apps4euModalActive {
   display:inline-block;
   background-repeat:no-repeat;
 }
+
+#apps4europeRoot dd {
+  margin-bottom:.5em;
+}
+
+#apps4europeRoot dd ul {
+  margin:0;
+  padding:0;
+}
+
+#apps4europeRoot dd ul li {
+  list-style-position: inside;
+}
+
+#apps4europeRoot td.images {
+  width:140px;
+}

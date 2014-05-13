@@ -19,6 +19,28 @@
         <dt>Ends</dt>
           <dd>{{endDate}}</dd>
       {{/if}}
+
+      {{#if organizers}}
+        <dt>Organizers</dt>
+          <dd>
+            <ul>
+              {{#each organizers}}
+                <li><a href="{{this.url}}" target="_blank">{{this.name}}</a></li>
+              {{/each}}
+            </ul>
+          </dd>
+      {{/if}}
+
+      {{#if sponsors}}
+        <dt>Sponsors</dt>
+          <dd>
+            <ul>
+              {{#each sponsors}}
+                <li><a href="{{this.url}}" target="_blank">{{this.name}}</a></li>
+              {{/each}}
+            </ul>
+          </dd>
+      {{/if}}
     </dl>
   </div>
 </div>
@@ -68,15 +90,38 @@
   </div>
 {{/if}}
 
+{{#if contacts}}
+  <div class="row contact">
+    <div class="col-md-12">
+      <h2>Contact persons</h2>
+      <table class="table table-hover table-striped table-responsive">
+        <thead>
+          <tr><th>Name</th><th>E-mail</th><th>Phone</th></tr>
+        </thead>
+        <tbody>
+          {{#each contacts}}
+            <tr><td>{{this.name}}</td><td><a href="mailto:{{this.email}}">{{this.email}}</a></td><td>{{this.phone}}</td></tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{{/if}}
+
 {{#if juryMembers}}
   <div class="row jury">
     <div class="col-md-12">
       <h2>Jury</h2>
-      <ul>
-        {{#each juryMembers}}
-          <li><a href="mailto:{{this.email}}">{{this.name}}</a></li>
-        {{/each}}
-      </ul>
+      <table class="table table-hover table-striped table-responsive">
+        <thead>
+          <tr><th>Name</th><th>E-mail</th></tr>
+        </thead>
+        <tbody>
+          {{#each juryMembers}}
+            <tr><td>{{this.name}}</td><td><a href="mailto:{{this.email}}">{{this.email}}</a></td></tr>
+          {{/each}}
+        </tbody>
+      </table>
     </div>
   </div>
 {{/if}}
@@ -84,12 +129,25 @@
 {{#if applications}}
   <div class="row apps">
     <div class="col-md-12">
-      <h2>Applications</h2>
-      <ul>
-        {{#each applications}}
-          <li><a href="#applications/{{this._id}}">{{this.title}}</a></li>
-        {{/each}}
-      </ul>
+      <h2>Applications related to this event</h2>
+      <table class="table table-hover table-striped table-responsive">
+        <thead>
+          <tr><th>Image</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          {{#each applications}}
+            <tr>
+              <td class="images">
+                <a class="img-thumbnail" style="background-image:url({{this.images.[0]}})" href="#applications/{{this._id}}"></a>
+              </td>
+              <td>
+                  <h4>{{this.title}}</h4>
+                  {{{this.text}}}
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
     </div>
   </div>
 {{/if}}
