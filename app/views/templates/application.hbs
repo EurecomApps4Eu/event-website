@@ -1,43 +1,55 @@
-<div class="row">
-  <div class="col-md-8">
-    <h1>{{title}}</h1>
-    <div class="text">{{{text}}}</div>
-    <div class="row">
-      <div class="col-md-12 images">
-        <h2>Images</h2>
-        {{#each images}}
-          <a class="img-thumbnail" style="background-image:url({{this}})" href="{{this}}"></a>
-        {{/each}}
+<div
+  prefix="
+    apps4X: http://semweb.mmlab.be/ns/apps4X#
+    odapps: http://semweb.mmlab.be/ns/odapps#
+    foaf: http://xmlns.com/foaf/0.1/
+    dct: http://purl.org/dc/terms/
+    schema: http://schema.org/
+    dvia: http://data.eurecom.fr/ontology/dvia#
+    lode: http://linkedevents.org/ontology/ "
+  about="{{rdfRootUrl}}/rdf/application/{{_id}}"
+  typeof="odapps:Application">
+  <div class="row">
+    <div class="col-md-8">
+      <h1 property="dct:title">{{title}}</h1>
+      <div property="dct:description" class="text">{{{text}}}</div>
+      <div class="row">
+        <div class="col-md-12 images">
+          <h2>Images</h2>
+          {{#each images}}
+            <a class="img-thumbnail" style="background-image:url({{this}})" href="{{this}}"></a>
+          {{/each}}
+        </div>
       </div>
     </div>
-  </div>
-  <div class="col-md-4">
-    <dl>
-      {{#if connectedEvent}}
-        <dt>Related Event</dt>
-          <dd><a href="#events/{{connectedEvent._id}}">{{connectedEvent.title}}</a></dd>
-      {{/if}}
+    <div class="col-md-4">
+      <dl>
+        {{#if connectedEvent}}
+          <dt>Related Event</dt>
+            <dd><a href="#events/{{connectedEvent._id}}">{{connectedEvent.title}}</a></dd>
+        {{/if}}
 
-      {{#if homepage}}
-        <dt>Homepage</dt>
-          <dd><a target="_blank" href="{{homepage}}">{{homepage}}</a></dd>
-      {{/if}}
+        {{#if homepage}}
+          <dt>Homepage</dt>
+            <dd><a property="foaf:homepage" target="_blank" href="{{homepage}}">{{homepage}}</a></dd>
+        {{/if}}
 
-      {{#if downloadUrl}}
-        <dt>Download URL</dt>
-          <dd><a target="_blank" href="{{downloadUrl}}">{{downloadUrl}}</a></dd>
-      {{/if}}
+        {{#if downloadUrl}}
+          <dt>Download URL</dt>
+            <dd><a property="schema:downloadUrl" target="_blank" href="{{downloadUrl}}">{{downloadUrl}}</a></dd>
+        {{/if}}
 
-      {{#if datasets}}
-        <dt>Datasets</dt>
-          <dd>
-            <ul class="datasets">
-              {{#each datasets}}
-                <li><a target="_blank" href="{{this.url}}">{{this.url}}</a></li>
-              {{/each}}
-            </ul>
-          </dd>
-      {{/if}}
-    </dl>
+        {{#if datasets}}
+          <dt>Datasets</dt>
+            <dd>
+              <ul class="datasets">
+                {{#each datasets}}
+                  <li><a target="_blank" href="{{this.url}}">{{this.url}}</a></li>
+                {{/each}}
+              </ul>
+            </dd>
+        {{/if}}
+      </dl>
+    </div>
   </div>
 </div>

@@ -1,5 +1,7 @@
 var template = require('./templates/application.hbs');
 var Model = require('../model');
+var $ = require('../../bower_components/jquery/dist/jquery.min.js');
+var config = require('../../config.js');
 
 var Application = {
 
@@ -12,6 +14,9 @@ var Application = {
         populate:'connectedEvent'
       },
       success: function(data) {
+        var data = $.extend({}, data, {
+          rdfRootUrl: config.restURI
+        });
         Application.render(data);
       }
     });

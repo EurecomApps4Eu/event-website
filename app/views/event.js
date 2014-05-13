@@ -1,6 +1,7 @@
 var template = require('./templates/event.hbs');
 var Model = require('../model');
 var $ = require('../../bower_components/jquery/dist/jquery.min.js');
+var config = require('../../config.js');
 
 function formatDate(dateString) {
   return dateString.substring(0, 10);
@@ -43,7 +44,9 @@ var Event = {
         data.startDate = formatDate(data.startDate);
         data.endDate = formatDate(data.endDate);
 
-        $.extend(eventData, data);
+        $.extend(eventData, data, {
+          rdfRootUrl: config.restURI
+        });
         populateWinnerApps();
         Event.render(eventData);
       }

@@ -1,159 +1,177 @@
-<div class="row eventInfo">
-  <div class="col-md-8">
-    <h1>{{title}}</h1>
-    <div class="text">{{{text}}}</div>
-  </div>
-  <div class="col-md-4">
-    <dl>
-      {{#if location}}
-        <dt>Location</dt>
-          <dd>{{location}}</dd>
-      {{/if}}
-
-      {{#if startDate}}
-        <dt>Starts</dt>
-          <dd>{{startDate}}</dd>
-      {{/if}}
-
-      {{#if endDate}}
-        <dt>Ends</dt>
-          <dd>{{endDate}}</dd>
-      {{/if}}
-
-      {{#if organizers}}
-        <dt>Organizers</dt>
-          <dd>
-            <ul>
-              {{#each organizers}}
-                <li><a href="{{this.url}}" target="_blank">{{this.name}}</a></li>
-              {{/each}}
-            </ul>
-          </dd>
-      {{/if}}
-
-      {{#if sponsors}}
-        <dt>Sponsors</dt>
-          <dd>
-            <ul>
-              {{#each sponsors}}
-                <li><a href="{{this.url}}" target="_blank">{{this.name}}</a></li>
-              {{/each}}
-            </ul>
-          </dd>
-      {{/if}}
-    </dl>
-  </div>
-</div>
-
-{{#if firstPrize}}
-  <div class="row prizes">
-    <div class="col-md-12">
-      <h2>Prizes</h2>
-
-      <h4>First Prize</h4>
-      <p>
-        Prize: {{firstPrize}}
-        {{#if firstPrizeWinners}}
-          <br>Winners:
-          {{#each firstPrizeWinners}}
-            <a href="#applications/{{this._id}}">{{this.title}}</a>
-          {{/each}}
+<div
+  prefix="
+    apps4X: http://semweb.mmlab.be/ns/apps4X#
+    odapps: http://semweb.mmlab.be/ns/odapps#
+    foaf: http://xmlns.com/foaf/0.1/
+    dct: http://purl.org/dc/terms/
+    schema: http://schema.org/
+    dvia: http://data.eurecom.fr/ontology/dvia#
+    lode: http://linkedevents.org/ontology/ "
+  about="{{rdfRootUrl}}/rdf/event/{{_id}}"
+  typeof="apps4X:CocreationEvent">
+  <div class="row eventInfo">
+    <div class="col-md-8">
+      <h1 property="dct:title">{{title}}</h1>
+      <div property="dct:description" class="text">{{{text}}}</div>
+    </div>
+    <div class="col-md-4">
+      <dl>
+        {{#if location}}
+          <dt>Location</dt>
+            <dd property="dct:spatial">{{location}}</dd>
         {{/if}}
-      </p>
 
-      {{#if secondPrize}}
-        <h4>Second Prize</h4>
+        {{#if startDate}}
+          <dt>Starts</dt>
+            <dd property="schema:startDate">{{startDate}}</dd>
+        {{/if}}
+
+        {{#if endDate}}
+          <dt>Ends</dt>
+            <dd property="schema:endDate">{{endDate}}</dd>
+        {{/if}}
+
+        {{#if organizers}}
+          <dt>Organizers</dt>
+            <dd>
+              <ul>
+                {{#each organizers}}
+                  <li><a href="{{this.url}}" target="_blank">{{this.name}}</a></li>
+                {{/each}}
+              </ul>
+            </dd>
+        {{/if}}
+
+        {{#if sponsors}}
+          <dt>Sponsors</dt>
+            <dd>
+              <ul>
+                {{#each sponsors}}
+                  <li><a href="{{this.url}}" target="_blank">{{this.name}}</a></li>
+                {{/each}}
+              </ul>
+            </dd>
+        {{/if}}
+
+        {{#if theme}}
+          <dt>Theme</dt>
+            <dd property="odapps:theme">{{theme}}</dd>
+        {{/if}}
+      </dl>
+    </div>
+  </div>
+
+  {{#if firstPrize}}
+    <div class="row prizes">
+      <div class="col-md-12">
+        <h2>Prizes</h2>
+
+        <h4>First Prize</h4>
         <p>
-          Prize: {{secondPrize}}
-          {{#if secondPrizeWinners}}
+          Prize: <span property="apps4X:firstPrize">{{firstPrize}}</span>
+          {{#if firstPrizeWinners}}
             <br>Winners:
-            {{#each secondPrizeWinners}}
+            {{#each firstPrizeWinners}}
               <a href="#applications/{{this._id}}">{{this.title}}</a>
             {{/each}}
           {{/if}}
         </p>
-      {{/if}}
 
-      {{#if thirdPrize}}
-        <h4>Third Prize</h4>
-        <p>
-          Prize: {{thirdPrize}}
-          {{#if thirdPrizeWinners}}
-            <br>Winners:
-            {{#each thirdPrizeWinners}}
-              <a href="#applications/{{this._id}}">{{this.title}}</a>
+        {{#if secondPrize}}
+          <h4>Second Prize</h4>
+          <p>
+            Prize: <span property="apps4X:secondPrize">{{secondPrize}}</span>
+            {{#if secondPrizeWinners}}
+              <br>Winners:
+              {{#each secondPrizeWinners}}
+                <a href="#applications/{{this._id}}">{{this.title}}</a>
+              {{/each}}
+            {{/if}}
+          </p>
+        {{/if}}
+
+        {{#if thirdPrize}}
+          <h4>Third Prize</h4>
+          <p>
+            Prize: <span property="apps4X:thirdPrize">{{thirdPrize}}</span>
+            {{#if thirdPrizeWinners}}
+              <br>Winners:
+              {{#each thirdPrizeWinners}}
+                <a href="#applications/{{this._id}}">{{this.title}}</a>
+              {{/each}}
+            {{/if}}
+          </p>
+        {{/if}}
+      </div>
+    </div>
+  {{/if}}
+
+  {{#if contacts}}
+    <div class="row contact">
+      <div class="col-md-12">
+        <h2>Contact persons</h2>
+        <table class="table table-hover table-striped table-responsive">
+          <thead>
+            <tr><th>Name</th><th>E-mail</th><th>Phone</th></tr>
+          </thead>
+          <tbody>
+            {{#each contacts}}
+              <tr><td>{{this.name}}</td><td><a href="mailto:{{this.email}}">{{this.email}}</a></td><td>{{this.phone}}</td></tr>
             {{/each}}
-          {{/if}}
-        </p>
-      {{/if}}
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-{{/if}}
+  {{/if}}
 
-{{#if contacts}}
-  <div class="row contact">
+  {{#if juryMembers}}
+    <div class="row jury">
+      <div class="col-md-12">
+        <h2>Jury</h2>
+        <table class="table table-hover table-striped table-responsive">
+          <thead>
+            <tr><th>Name</th><th>E-mail</th></tr>
+          </thead>
+          <tbody>
+            {{#each juryMembers}}
+              <tr><td>{{this.name}}</td><td><a href="mailto:{{this.email}}">{{this.email}}</a></td></tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {{/if}}
+
+  {{#if applications}}
+    <div class="row apps">
+      <div class="col-md-12">
+        <h2>Applications related to this event</h2>
+        <table class="table table-hover table-striped table-responsive">
+          <thead>
+            <tr><th>Image</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            {{#each applications}}
+              <tr>
+                <td class="images">
+                  <a class="img-thumbnail" style="background-image:url({{this.images.[0]}})" href="#applications/{{this._id}}"></a>
+                </td>
+                <td>
+                    <h4>{{this.title}}</h4>
+                    {{{this.text}}}
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {{/if}}
+
+  <div class="row actions" style="margin-top:1.4em">
     <div class="col-md-12">
-      <h2>Contact persons</h2>
-      <table class="table table-hover table-striped table-responsive">
-        <thead>
-          <tr><th>Name</th><th>E-mail</th><th>Phone</th></tr>
-        </thead>
-        <tbody>
-          {{#each contacts}}
-            <tr><td>{{this.name}}</td><td><a href="mailto:{{this.email}}">{{this.email}}</a></td><td>{{this.phone}}</td></tr>
-          {{/each}}
-        </tbody>
-      </table>
+      <a class="btn btn-primary" id="submitApp" href="#"><i class="fa fa-plus"></i> Submit application</a>
     </div>
   </div>
-{{/if}}
 
-{{#if juryMembers}}
-  <div class="row jury">
-    <div class="col-md-12">
-      <h2>Jury</h2>
-      <table class="table table-hover table-striped table-responsive">
-        <thead>
-          <tr><th>Name</th><th>E-mail</th></tr>
-        </thead>
-        <tbody>
-          {{#each juryMembers}}
-            <tr><td>{{this.name}}</td><td><a href="mailto:{{this.email}}">{{this.email}}</a></td></tr>
-          {{/each}}
-        </tbody>
-      </table>
-    </div>
-  </div>
-{{/if}}
-
-{{#if applications}}
-  <div class="row apps">
-    <div class="col-md-12">
-      <h2>Applications related to this event</h2>
-      <table class="table table-hover table-striped table-responsive">
-        <thead>
-          <tr><th>Image</th><th>Description</th></tr>
-        </thead>
-        <tbody>
-          {{#each applications}}
-            <tr>
-              <td class="images">
-                <a class="img-thumbnail" style="background-image:url({{this.images.[0]}})" href="#applications/{{this._id}}"></a>
-              </td>
-              <td>
-                  <h4>{{this.title}}</h4>
-                  {{{this.text}}}
-              </td>
-            </tr>
-          {{/each}}
-        </tbody>
-      </table>
-    </div>
-  </div>
-{{/if}}
-
-<div class="row actions" style="margin-top:1.4em">
-  <div class="col-md-12">
-    <a class="btn btn-primary" id="submitApp" href="#"><i class="fa fa-plus"></i> Submit application</a>
-  </div>
 </div>
